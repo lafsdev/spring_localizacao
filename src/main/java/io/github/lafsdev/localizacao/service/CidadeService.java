@@ -2,11 +2,11 @@ package io.github.lafsdev.localizacao.service;
 
 import io.github.lafsdev.localizacao.domain.entity.Cidade;
 import io.github.lafsdev.localizacao.domain.repository.CidadeRepository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CidadeService {
@@ -41,13 +41,20 @@ public class CidadeService {
 
 
     @Transactional
-    void salvarCidade() {
+    public void salvarCidade() {
         var cidade = new Cidade(1L, "São Paulo", 12369398L);
         repository.save(cidade);
     }
 
     @Transactional
-    void listarCidades() {
+    public void listarCidades() {
         repository.findAll().forEach(System.out::println);
+    }
+
+    @Transactional
+    public List<Cidade> filtroDinamico(Cidade cidade) {
+        ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase();
+        Example<Cidade> example = Example.of(cidade, matcher);
+        return repository.findAll(example);
     }
 }
