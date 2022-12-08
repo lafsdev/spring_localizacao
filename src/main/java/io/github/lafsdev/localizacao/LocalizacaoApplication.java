@@ -14,7 +14,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		service.listarCidadesPorNomePaginada();
+		service.listarCidadesByNomeSpec();
 	}
 
 

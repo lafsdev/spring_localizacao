@@ -2,6 +2,7 @@ package io.github.lafsdev.localizacao.service;
 
 import io.github.lafsdev.localizacao.domain.entity.Cidade;
 import io.github.lafsdev.localizacao.domain.repository.CidadeRepository;
+import io.github.lafsdev.localizacao.domain.repository.speces.CidadeSpecs;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,5 +57,10 @@ public class CidadeService {
         ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreCase();
         Example<Cidade> example = Example.of(cidade, matcher);
         return repository.findAll(example);
+    }
+
+    public void listarCidadesByNomeSpec() {
+
+        repository.findAll(CidadeSpecs.nomeEqual("São Paulo").or(CidadeSpecs.habitantesGreaterThan(1000L))).forEach(System.out::println);
     }
 }
