@@ -1,5 +1,6 @@
 package io.github.lafsdev.localizacao;
 
+import io.github.lafsdev.localizacao.domain.entity.Cidade;
 import io.github.lafsdev.localizacao.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,7 +15,8 @@ public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		service.listarCidadesByNomeSpec();
+		Cidade cidade = new Cidade(1L, "São Paulo", 100L);
+		service.listarCidadesSpecsFiltroDinamico(cidade);
 	}
 
 
