@@ -28,6 +28,13 @@ public class CidadeService {
     }
 
     @Transactional
+    public void listarCidadesPorNomeSql() {
+        repository.findByNomeSqlNativo("São Paulo").stream().map(cidadeProjection -> new Cidade(cidadeProjection.getId(), cidadeProjection.getNome(), null))
+                .forEach(System.out::println);
+    }
+
+
+    @Transactional
     public void listarCidadesPorNomePaginada() {
         Pageable pageable = PageRequest.of(0, 10);
         repository.findByNomeLike("Porto%", pageable).forEach(System.out::println);
